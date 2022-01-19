@@ -1,5 +1,3 @@
-# TLE
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -11,7 +9,8 @@ int parent[2000001];
 
 int find(int x) {
 	if (x == parent[x]) return x;
-	return x = find(parent[x]);
+	// 이 부분을 x = find(parent[x])라고 쓰는 실수를 했음..
+	return parent[x] = find(parent[x]);
 }
 
 void Union(int x, int y) {
@@ -47,6 +46,6 @@ int main() {
 	}
 
 	cout << sum << '\n';
-	
+
 	return 0;
 }
