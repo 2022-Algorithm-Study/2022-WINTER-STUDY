@@ -43,7 +43,8 @@ int main(){
         }
         
         else{
-            end = get<1>(v[i]);
+            if (get<1>(v[i]) > end)
+                end = get<1>(v[i]);
             if (get<2>(v[i]) < cost)
                 cost=get<2>(v[i]);
         }
@@ -53,5 +54,4 @@ int main(){
     for (int i=0;i<result.size();i++){
         cout<<get<0>(result[i])<<" "<<get<1>(result[i])<<" "<<get<2>(result[i])<<'\n';
     }
-    
 }
