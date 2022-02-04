@@ -17,11 +17,11 @@ int main() {
         ll a = x / m; // 몫 (주기 m인 사이클 몇 번?)
         ll d = a * m; // 주기동안 지난 날
 
-        if (m % n == 0) {
-            if (i == n) x -= (m - n) * a;
-            else x -= m * a;
+        if (m % n == 0) { // ex) input : 2 4
+            if (i == n) x -= (m - n) * a; // 2 4 에서 두번째 과제
+            else x -= m * a; // 2 4 에서 첫번째 과제
         }
-        else x -= m * a;
+        else x -= (m - 1) * a;
 
         if (x <= 0 && d < ans) {
             ans = d;
