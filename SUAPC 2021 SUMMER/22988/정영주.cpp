@@ -13,12 +13,13 @@ int main() {
     cin >> n >> x;
     long double half = x / 2;
 
-    for (int i = 0, a; i < n; i++) {
+    long double a, ans = 0;
+    for (int i = 0; i < n; i++) {
         cin >> a;
-        s.insert(a);
+        if (a >= x) ans++;
+        else s.insert(a);
     }
 
-    long long ans = 0;
     while (s.size() > 1) {
         long double sum = *s.begin() + *s.rbegin();
         if (sum >= half) {
