@@ -24,15 +24,16 @@ ll solve(string s,int idx,int size){
         for(int i = 0; i < size; i++){
             hash += p[n[i]-'a'];
         }
+
     }
     
     else{
         hash=state[idx-1];
         hash -= p[n[idx-1]-'a'];
         hash += p[n[idx+size-1]-'a'];
-        state[idx]=hash;
+
     }
-    
+    state[idx]=hash;
     return hash;
 }
 
