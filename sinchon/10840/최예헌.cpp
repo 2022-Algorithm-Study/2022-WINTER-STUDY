@@ -1,4 +1,3 @@
-//
 #include <iostream>
 #include <cstring>
 #include <set>
@@ -16,19 +15,19 @@ void clearp() {
     for (int i = 1; i < 26; i++) p[i] = p[i - 1] * 1501;
 }
 
-ll solve(string s,int idx,int size){
+ll solve(string str,ll idx,ll size){
     ll hash;
     if (idx==0){
         hash=0;
         for(int i = 0; i < size; i++){
-            hash += p[s[i]-'a'];
+            hash += p[str[i]-'a'];
         }
     }
     
     else{
         hash = state[idx-1];
-        hash -= p[s[idx-1]-'a'];
-        hash += p[s[idx+size-1]-'a'];
+        hash -= p[str[idx-1]-'a'];
+        hash += p[str[idx+size-1]-'a'];
     }
     
     state[idx]=hash;
@@ -56,18 +55,15 @@ int main(){
     
     clearp();
     while (result){
-        
         set<ll> s;
         bool flag=false;
         
         if (k==0){
-            state[0]=0;
             for (int i=0;i+result-1<n.size();i++){
                 s.insert(solve(n,i,result));
-    //               cout<<temp<<"*\n";
+//                   cout<<temp<<"*\n";
             }
-               
-            state[0]=0;
+            
             for (int i=0;i+result-1<m.size();i++){
                 ll temp = solve(m,i,result);
                 if (s.find(temp)!=s.end()){
@@ -79,14 +75,12 @@ int main(){
         }
         
         else{
-            state[0]=0;
-            for (int i=0;i+result-1<n.size();i++){
+            for (int i=0;i+result-1<m.size();i++){
                 s.insert(solve(m,i,result));
     //               cout<<temp<<"*\n";
             }
-                
-            state[0]=0;
-            for (int i=0;i+result-1<m.size();i++){
+            
+            for (int i=0;i+result-1<n.size();i++){
                 ll temp = solve(n,i,result);
                 if (s.find(temp)!=s.end()){
     //                    cout<<temp<<"** ";
@@ -100,10 +94,9 @@ int main(){
         }
         result--;
     }
+    
     if (result<0)
         cout<<"0";
     else
         cout<<result;
 }
-
-
