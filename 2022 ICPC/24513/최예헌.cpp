@@ -41,9 +41,9 @@ void solve(void){
         int now_vir=get<2>(q.top().second);
         q.pop();
         
-//        check[now_y][now_x]=now_time;
-//        if (now_vir==3)
-//            continue;
+        if (arr[now_y][now_x] == 3)
+            continue;
+
         
         for (int k=0;k<4;k++){
             int nexty=now_y+dy[k];
