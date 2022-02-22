@@ -9,16 +9,30 @@ typedef long long ll;
 #define mod 1000000007
 
 ll p[26];
+string n,m;
+ll state[1505];
+
 void clearp() {
     p[0] = 1;
     for (int i = 1; i < 26; i++) p[i] = p[i - 1] * 1501;
 }
 
-ll solve(string s){
-    ll hash=0;
-    for(int i = 0; i < s.length(); i++){
-        hash += p[s[i]-'a'];
+ll solve(string s,int idx,int size){
+    ll hash;
+    if (idx==0){
+        hash=0;
+        for(int i = 0; i < size; i++){
+            hash += p[n[i]-'a'];
+        }
     }
+    
+    else{
+        hash=state[idx-1];
+        hash -= p[n[idx-1]-'a'];
+        hash += p[n[idx+size-1]-'a'];
+        state[idx]=hash;
+    }
+    
     return hash;
 }
 
@@ -26,7 +40,6 @@ int main(){
     cin.tie(0); cout.tie(0);
     ios::sync_with_stdio(false);
     
-    string n,m;
     cin>>n>>m;
     
     ll k;
@@ -47,17 +60,16 @@ int main(){
         set<ll> s;
         bool flag=false;
         if (k==0){
+            state[0]=0;
             for (int i=0;i+result-1<n.size();i++){
-                string s1 = n.substr(i,result);
-                ll temp=solve(s1);
-                s.insert(temp);
-//                cout<<temp<<"*\n";
+                s.insert(solve(n,i,result));
+    //               cout<<temp<<"*\n";
             }
-            
+                
             for (int i=0;i+result-1<m.size();i++){
-                ll temp = solve(m.substr(i,result));
+                ll temp = solve(m,i,result);
                 if (s.find(temp)!=s.end()){
-//                    cout<<temp<<"** ";
+    //                    cout<<temp<<"** ";
                     flag=true;
                     break;
                 }
@@ -65,17 +77,16 @@ int main(){
         }
         
         else{
-            for (int i=0;i+result-1<m.size();i++){
-                string s1 = m.substr(i,result);
-                ll temp=solve(s1);
-                s.insert(temp);
-//                cout<<temp<<"*\n";
-            }
-            
+            state[0]=0;
             for (int i=0;i+result-1<n.size();i++){
-                ll temp = solve(n.substr(i,result));
+                s.insert(solve(m,i,result));
+    //               cout<<temp<<"*\n";
+            }
+                
+            for (int i=0;i+result-1<m.size();i++){
+                ll temp = solve(n,i,result);
                 if (s.find(temp)!=s.end()){
-//                    cout<<temp<<"** ";
+    //                    cout<<temp<<"** ";
                     flag=true;
                     break;
                 }
@@ -91,3 +102,5 @@ int main(){
     else
         cout<<result;
 }
+
+
