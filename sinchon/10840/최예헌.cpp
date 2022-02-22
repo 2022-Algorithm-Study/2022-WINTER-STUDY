@@ -42,7 +42,8 @@ int main(){
         k=1;
     }
     
-    while (result--){
+    while (result){
+        clearp();
         set<ll> s;
         bool flag=false;
         if (k==0){
@@ -50,13 +51,13 @@ int main(){
                 string s1 = n.substr(i,result);
                 ll temp=solve(s1);
                 s.insert(temp);
-                cout<<temp<<"*\n";
+//                cout<<temp<<"*\n";
             }
             
             for (int i=0;i+result-1<m.size();i++){
                 ll temp = solve(m.substr(i,result));
                 if (s.find(temp)!=s.end()){
-                    cout<<temp<<"** ";
+//                    cout<<temp<<"** ";
                     flag=true;
                     break;
                 }
@@ -68,13 +69,13 @@ int main(){
                 string s1 = m.substr(i,result);
                 ll temp=solve(s1);
                 s.insert(temp);
-                cout<<temp<<"*\n";
+//                cout<<temp<<"*\n";
             }
             
             for (int i=0;i+result-1<n.size();i++){
                 ll temp = solve(n.substr(i,result));
                 if (s.find(temp)!=s.end()){
-                    cout<<temp<<"** ";
+//                    cout<<temp<<"** ";
                     flag=true;
                     break;
                 }
@@ -83,7 +84,10 @@ int main(){
         if (flag){
             break;
         }
+        result--;
     }
-    cout<<result;
+    if (result<0)
+        cout<<"0";
+    else
+        cout<<result;
 }
-
