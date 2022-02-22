@@ -5,6 +5,16 @@
 #include <cmath>
 using namespace std;
 typedef long long ll;
+#define mod 1505
+
+ll solve(string s){
+    ll hash=0;
+    for(int i = 0; i < s.length(); i++){
+        hash+=pow(26,(s[i]-'a'));
+        hash%=mod;
+    }
+    return hash;
+}
 
 int main(){
     cin.tie(0); cout.tie(0);
@@ -29,22 +39,22 @@ int main(){
     }
     
     while (l<=r){
-        set<string> s;
+        set<ll> s;
         ll mid = ceil((double)(l+r)/2);
         
         bool flag=false;
         if (k==0){
             for (int i=0;i+mid-1<n.size();i++){
                 string s1 = n.substr(i,mid);
-                sort(s1.begin(),s1.end());
-                s.insert(s1);
+                ll temp=solve(s1);
+                s.insert(temp);
+//                cout<<temp<<"*\n";
             }
             
             for (int i=0;i+mid-1<m.size();i++){
-                string temp = m.substr(i,mid);
-                sort(temp.begin(),temp.end());
+                ll temp = solve(m.substr(i,mid));
                 if (s.find(temp)!=s.end()){
-//                    cout<<temp<<" ";
+//                    cout<<temp<<"** ";
                     flag=true;
                     break;
                 }
@@ -54,14 +64,15 @@ int main(){
         else{
             for (int i=0;i+mid-1<m.size();i++){
                 string s1 = m.substr(i,mid);
-                sort(s1.begin(),s1.end());
-                s.insert(s1);
+                ll temp=solve(s1);
+                s.insert(temp);
+//                cout<<temp<<"*\n";
             }
             
             for (int i=0;i+mid-1<n.size();i++){
-                string temp = n.substr(i,mid);
-                sort(temp.begin(),temp.end());
+                ll temp = solve(n.substr(i,mid));
                 if (s.find(temp)!=s.end()){
+//                    cout<<temp<<"** ";
                     flag=true;
                     break;
                 }
@@ -77,3 +88,4 @@ int main(){
     }
     cout<<result;
 }
+
