@@ -8,26 +8,26 @@
 using namespace std;
 typedef long long ll;
 
-int n,cnt;
+ll n,cnt;
 char area[1005][1005];        //영역
-int arr[1005][1005];          //영역을 숫자로
-map <int,int> m;              //영역, 개수
+ll arr[1005][1005];          //영역을 숫자로
 bool visit[1005][1005];
-int check[1005][1005];
-int dist[1005][1005];
+ll check[1005][1005];
+ll dist[1005][1005];
+ll m[1000005];
 
-int result=10000;
+ll result=10000;
 
 int dy[8]={-1,1,0,0,-1,-1,1,1};
 int dx[8]={0,0,-1,1,-1,1,-1,1};
 
-void dfs(int i,int j,int num){
+void dfs(ll i,ll j,ll num){
     visit[i][j]=true;
     arr[i][j]=num;
     
     for (int k=0;k<4;k++){
-        int nexty=i+dy[k];
-        int nextx=j+dx[k];
+        ll nexty=i+dy[k];
+        ll nextx=j+dx[k];
         
         if (nexty<0 || nexty>=n || nextx<0 || nextx>=n)
             continue;
@@ -43,11 +43,10 @@ void dfs(int i,int j,int num){
 }
 
 
-void solve(int i,int j){
-    priority_queue<tuple<int,int,int>> q;
+void solve(ll i,ll j){
+    priority_queue<tuple<ll,ll,ll>> q;
     //가중치값,i,j
     
-
 //    for (int i=0;i<n;i++){
 //        for (int j=0;j<n;j++){
 //            dist[i][j]=10000;
@@ -60,9 +59,9 @@ void solve(int i,int j){
     q.push({-dist[i][j],i,j});
     
     while (!q.empty()){
-        int weight=-get<0>(q.top());
-        int nowy=get<1>(q.top());
-        int nowx=get<2>(q.top());
+        ll weight=-get<0>(q.top());
+        ll nowy=get<1>(q.top());
+        ll nowx=get<2>(q.top());
 //        visit[nowy][nowx]=true;
         q.pop();
         
@@ -70,20 +69,14 @@ void solve(int i,int j){
             return;
 //        cout<<weight<<" "<<nowy<<" "<<nowx<<"\n";
         
-        if (check[nowy][nowx]!=10000){
-            q.push({-(weight+check[nowy][nowx]),n-1,0});
-            continue;
-        }
-        
         if (nowy==n-1 || nowx==0){
-            check[i][j]=weight;
             result=min(result,weight);
             return;
         }
         
         for (int k=0;k<8;k++){
-            int nexty=nowy+dy[k];
-            int nextx=nowx+dx[k];
+            ll nexty=nowy+dy[k];
+            ll nextx=nowx+dx[k];
             
             if (nexty<0 || nexty>=n || nextx<0 || nextx>=n)
                 continue;
@@ -135,11 +128,13 @@ int main(){
                 arr[i][j]=0;
                 continue;
             }
+            
             if (!visit[i][j]){
                 cnt=1;
                 dfs(i,j,temp);
                 m[temp]=cnt;
                 temp++;
+//                cout<<cnt<<" ";
             }
         }
     }
@@ -155,10 +150,8 @@ int main(){
     
     for (int i=0;i<n;i++){
         for (int j=0;j<n;j++){
-            check[i][j]=10000;
             dist[i][j]=10000;
         }
-        
     }
     
     for (int i=1;i<n;i++){
